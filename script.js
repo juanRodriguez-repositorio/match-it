@@ -476,10 +476,16 @@ function fillStatsModal() {
         const rowDiv = document.createElement("div");
         rowDiv.style.marginBottom = "10px";
         const cols = stats.getCols(row);
+
         const colText = cols.map(col => {
             const val = stats.get(row, col);
-            return `${col}: ${val.aciertos || 0}✔ / ${val.intentos || 0}✖`;
+            const aciertos = val.aciertos || 0;
+            const intentos = val.intentos || 0;
+            const fallidos = intentos - aciertos;
+
+            return `${col}: ${aciertos}✔ / ${fallidos}✖ (total ${intentos})`;
         }).join(", ");
+
         rowDiv.textContent = `${row} → ${colText}`;
         statsContent.appendChild(rowDiv);
     });

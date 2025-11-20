@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <title>Match it</title>
+        <!-- Esta es la línea que enlaza el CSS -->
+        <link rel="stylesheet" href="estilos.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+   <body>
+     <header class="score-board">
+        <span id="score">⭐ 0</span>
+        <span class="timer">⏳ <span id="timer">00:00</span></span>
+        <div class="absoluteButtons">
+            <button id="restartButtonHeader"></button>
+            <button id="showStatsButton" class="top-button"></button>
+        </div>
+    </header>
+
+    <div class="container">
+        <button class="change">
+
+        </button>
+    
+    </div>
+    <!-- Modal de fin de tiempo -->
+    <div id="timeModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>¡Se acabó el tiempo!</h2>
+            <p>Intenta de nuevo.</p>
+            <button id="restartButton">Reiniciar juego</button>
+        </div>
+    </div>
+    <div id="statsModal" class="modalStats hidden">
+        <div class="modalStats-content">
+            <h2>Estadísticas del jugador</h2>
+            <div id="statsContent">
+            <!-- Aquí se llenarán las estadísticas dinámicamente -->
+            </div>
+            <button id="closeStatsButton">Cerrar</button>
+        </div>
+    </div>
+   </body>
+
+  <script src="script.js"></script>
+</body>
+</html>

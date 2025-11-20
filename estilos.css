@@ -1,0 +1,313 @@
+body{
+    height: 100vh;
+    width: 100vw;
+    background-color: aqua;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+.container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px
+}
+.change {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  background-image: url("imagenes/angulo-derecho.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  border: none;
+  background-color: aquamarine;
+  transition: all 0.1s ease;
+  cursor: pointer;
+}
+.change:hover{
+    background-color: rgb(124, 233, 197);
+}
+
+
+.card {
+    width: 280px;      /* antes 250 */
+    height: fit-content;
+    padding-bottom: 20px;
+    padding-top: 20px;     /* antes 150 */
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* ⬅️ importante */
+    align-items: center;
+    padding: 15px;
+    user-select: none;
+    transition: .2s;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.20);
+}
+
+.card-content {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.card-input {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.card-input input {
+    width: 90%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    font-size: 18px;
+}
+.flecha{
+    max-width: 32px;
+    max-height: 32px;
+}
+/* --- animaciones y estados --- */
+@keyframes bgPulseGreen {
+  0% { box-shadow: 0 4px 10px rgba(0,0,0,0.15); transform: translateY(0) scale(1); }
+  50% { box-shadow: 0 8px 20px rgba(0,200,100,0.25); transform: translateY(-4px) scale(1.02); }
+  100% { box-shadow: 0 4px 10px rgba(0,0,0,0.15); transform: translateY(0) scale(1); }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+
+/* estado CORRECTO: fondo verde suave y pulso */
+.card.correct {
+  background: linear-gradient(180deg, #e9fff2, #d7ffea);
+  border: 2px solid #28a745;
+  animation: bgPulseGreen 420ms ease;
+  transition: background 200ms ease, border 200ms ease;
+}
+
+/* estado INCORRECTO: fondo rojizo y sacudida */
+.card.incorrect {
+  background: linear-gradient(180deg, #ffe9e9, #ffd7d7);
+  border: 2px solid #e03b3b;
+  animation: shake 300ms ease;
+  transition: background 120ms ease, border 120ms ease;
+}
+
+/* un pequeño texto de feedback dentro de la carta */
+.card .feedback {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+/* evitar que el input se vea raro al poner borde rojo / verde */
+.card-input input.correct-border { border-color: #28a745; }
+.card-input input.incorrect-border { border-color: #e03b3b; }
+
+/* transición para el reemplazo de carta */
+.card-replace {
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.card-replace.fade-out { opacity: 0; transform: scale(0.98); }
+.stars {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.star {
+    color: gold;
+    filter: drop-shadow(0px 0px 3px rgba(255, 200, 0, 0.7));
+}
+.card-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+}
+.score-board {
+    width: 100%;
+    background: #13c0c0;
+    color: gold;
+    font-size: 24px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+}
+
+.timer {
+    color: #fcfffe; /* celeste bonito */
+}
+.progress-bar {
+    width: 90%;
+    height: 10px;
+    background: #ffffff;
+    border-radius: 5px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: #4caf50;
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 5px;
+
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+#restartButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+}
+
+#restartButton:hover {
+    background-color: #45a049;
+}
+#restartButtonHeader{
+    background-image: url("imagenes/reiniciar.png");
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+#restartButtonHeader:hover{
+    background-color: #e6e0e0;
+    
+}
+.absoluteButtons{
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-right: 70px;
+    margin-top: 15px;
+    width: fit-content;
+    height: fit-content;
+}
+.modalStats {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modalStats-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.modalStats.hidden {
+    display: none;
+}
+
+#closeStatsButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #e74c3c;
+    color: white;
+    cursor: pointer;
+}
+
+#closeStatsButton:hover {
+    background-color: #c0392b;
+}
+#showStatsButton{
+    background-image: url("imagenes/estadistica.png");
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+#showStatsButton:hover{
+    background-color: #e6e0e0;
+    
+}
